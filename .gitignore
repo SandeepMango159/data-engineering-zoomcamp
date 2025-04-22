@@ -16,3 +16,4 @@ serving_dir
 !week_6_stream_processing/avro_example/data/rides.csv
 dataenginzoomvenv
 
+01-docker-terraform/2_docker_sql/output.csv.gz
