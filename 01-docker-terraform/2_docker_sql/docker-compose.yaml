@@ -1,14 +1,22 @@
 services:
+  # name of service, to choose yourself
+  # since both are in a docker compose, they automatically become part of the same docker network, oke...
   pgdatabase:
+    # which image to use
     image: postgres:13
+    # environment is all the -e arguments
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=ny_taxi
+    # volume mapping, local data vs container path data
     volumes:
-      - "./ny_taxi_postgres_data:/var/lib/postgresql/data:rw"
+      #- "./ny_taxi_postgres_data:/var/lib/postgresql/data:rw"
+      - "../../Data/ny_taxi_postgres_data:/var/lib/postgresql/data:rw"
+    # port mapping
     ports:
       - "5432:5432"
+    # name of service
   pgadmin:
     image: dpage/pgadmin4
     environment:
