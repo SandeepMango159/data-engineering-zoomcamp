@@ -17,3 +17,4 @@ serving_dir
 dataenginzoomvenv
 
 01-docker-terraform/2_docker_sql/output.csv.gz
+secrets
