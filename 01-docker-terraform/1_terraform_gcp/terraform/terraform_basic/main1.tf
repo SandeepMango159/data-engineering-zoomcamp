@@ -17,3 +17,23 @@ provider "google" {
 
 }
 
+# Create a resource on GCP 
+# - with variable name "examplename"
+resource "google_storage_bucket" "data-lake-bucket" {
+  # name must be unique across all of the entirity of GCP, so including every user and every project ever
+  # Make unique by using projectid in name, because that's unique... 
+  name          = "de-zoomcamp-course-458518-data-lake-bucket"
+  location      = "europe-west1"
+  force_destroy = true
+
+  lifecycle_rule {
+    condition {
+      # Age is specified in days, from creation time for an object, or initiated time for multi-part upload
+      age = 1
+    }
+    action {
+      # For literally what the name says, multipart uploads that have failed...
+      type = "AbortIncompleteMultipartUpload"
+    }
+  }
+}
