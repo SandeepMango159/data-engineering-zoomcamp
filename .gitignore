@@ -18,3 +18,29 @@ dataenginzoomvenv
 
 01-docker-terraform/2_docker_sql/output.csv.gz
 secrets
+
+##Terraform related files to not version
+# Terraform state
+*.tfstate
+*.tfstate.backup
+
+# Crash log
+crash.log
+
+# Terraform working dir
+.terraform/
+
+# Sensitive variable files
+*.tfvars
+*.tfvars.json
+
+# Override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Local credentials or plan files
+terraform.tfplan
+.terraform.lock.hcl
+
