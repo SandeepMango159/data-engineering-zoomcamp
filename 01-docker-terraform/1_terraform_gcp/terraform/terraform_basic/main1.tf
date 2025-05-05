@@ -37,3 +37,10 @@ resource "google_storage_bucket" "data-lake-bucket" {
     }
   }
 }
+
+# This is a resource without vars file...
+# resource "google_bigquery_dataset" "dataset" {
+#   dataset_id = "<The Dataset Name You Want to Use>"
+#   project    = "<Your Project ID>"
+#   location   = "europe-west1"
+# }
