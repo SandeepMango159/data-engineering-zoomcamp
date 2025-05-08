@@ -118,6 +118,13 @@ tasks:
           congestion_surcharge   double precision
       );
 
+  # Truncate staging table, meaning remove all rows from it
+  # Not the same as dropping a table
+  - id: green_truncate_staging_table
+    type: io.kestra.plugin.jdbc.postgresql.Queries
+    sql: |
+      TRUNCATE TABLE {{render(vars.staging_table)}};      
+
   # Copies data into the staging table, from the data variable, from which we get the values, and we write to the columns specified in columns property
   # And specifices the table we write into
   - id: green_copy_in_to_staging_table
