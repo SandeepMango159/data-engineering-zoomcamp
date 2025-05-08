@@ -2,12 +2,11 @@ id: postgres_taxi
 namespace: de_zoomcamp
 
 # General workflow will be
-  # Make request to git repository
+  # Make request to git repository and extract  data from github, 
+  # Put into staging table where we can add unique id and filename as extra columns to the data, 
+  # And then we merge the data into the main table so we ha ve a table that has everything inside of it, except for everything seperate... 
 
-  # Download and extract
-
-  # Merge the data
-
+  
 # Creates input with yellow or green taxis
 inputs:
   - id: taxi
