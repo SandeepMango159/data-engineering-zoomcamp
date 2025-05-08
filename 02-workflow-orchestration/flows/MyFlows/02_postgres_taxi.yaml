@@ -1,0 +1,52 @@
+id: postgres_taxi
+namespace: de_zoomcamp
+
+# General workflow will be
+  # Make request to git repository
+
+  # Download and extract
+
+  # Merge the data
+
+# Creates input with yellow or green taxis
+inputs:
+  - id: taxi
+    type: SELECT
+    displayName: Select taxi type
+    values: ['yellow', 'green']
+    defaults: 'yellow'
+
+  # Input for year
+  - id: year
+    type: SELECT
+    displayName: Select year
+    values: ["2019", "2020"]
+    defaults: "2019"
+
+  # Input for months
+  - id: month
+    type: SELECT
+    displayName: Select month
+    values: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+    defaults: "01"
+
+variables:
+  # File is the file we're downloading
+  file: "{{inputs.taxi}}_tripdata_{{inputs.year}}-{{inputs.month}}.csv"
+  # Staging is the table from the file, so with the monthly data
+  staging_table: "public.{{inputs.taxi}}_tripdata_staging"
+  # Table is the table that has all the data from all the years and months combined.
+  table: "public.{{inputs.taxi}}_tripdata"
+  # Data is the data that is created from the extract task
+  data: "{{outputs.extract.outputFiles[inputs.taxi ~ '_tripdata_' ~ inputs.year ~ '-' ~ inputs.month ~ '.csv']}}"    
+  
+
+tasks:
+  # Task to help us identify if this is a green or yellow taxi execution.
+  - id: set_label
+    type: io.kestra.plugin.core.execution.Labels
+    labels:
+      file: "{{render(vars.file)}}"
+      taxi: "{{inputs.taxi}}"
+
+
