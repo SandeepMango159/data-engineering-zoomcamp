@@ -5,6 +5,9 @@ volumes:
     driver: local
   zoomcamp-data:
     driver: local
+  # Added volume for pgadmin
+  pgadmin-data:
+    driver: local
 
 services:
   postgres:
@@ -87,6 +90,8 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=root
     ports:
       - "8085:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
     depends_on:
       postgres_zoomcamp:
         condition: service_started
