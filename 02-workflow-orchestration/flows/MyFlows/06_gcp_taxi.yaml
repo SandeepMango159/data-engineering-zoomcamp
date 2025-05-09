@@ -121,6 +121,25 @@ tasks:
               skip_leading_rows = 1,
               ignore_unknown_values = TRUE
           );
+
+      # Creates a temporary table with new unique row id identifier, file name and all original rows from the external table
+      - id: bq_green_table_tmp
+        type: io.kestra.plugin.gcp.bigquery.Query
+        sql: |
+          CREATE OR REPLACE TABLE `{{kv('GCP_PROJECT_ID')}}.{{render(vars.table)}}`
+          AS
+          SELECT
+            MD5(CONCAT(
+              COALESCE(CAST(VendorID AS STRING), ""),
+              COALESCE(CAST(lpep_pickup_datetime AS STRING), ""),
+              COALESCE(CAST(lpep_dropoff_datetime AS STRING), ""),
+              COALESCE(CAST(PULocationID AS STRING), ""),
+              COALESCE(CAST(DOLocationID AS STRING), "")
+            )) AS unique_row_id,
+            "{{render(vars.file)}}" AS filename,
+            *
+          FROM `{{kv('GCP_PROJECT_ID')}}.{{render(vars.table)}}_ext`;
+  
   - id: purge_files
     type: io.kestra.plugin.core.storage.PurgeCurrentExecutionFiles
     description: If you'd like to explore Kestra outputs, disable it.
