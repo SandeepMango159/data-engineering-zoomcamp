@@ -23,7 +23,7 @@
         {{ adapter.quote("ehail_fee") }},
         {{ adapter.quote("improvement_surcharge") }},
         {{ adapter.quote("total_amount") }},
-        {{ adapter.quote("payment_type") }},
+        {{ get_payment_type_description( adapter.quote("payment_type") )}} as payment_type_description,
         {{ adapter.quote("trip_type") }},
         {{ adapter.quote("congestion_surcharge") }}
 
