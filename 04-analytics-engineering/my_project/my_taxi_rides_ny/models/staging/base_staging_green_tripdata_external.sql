@@ -6,7 +6,9 @@
   ),
   renamed as (
       select
-          {{ adapter.quote("VendorID") }},
+
+        {{dbt_utils.generate_surrogate_key([adapter.quote("VendorID"), adapter.quote("lpep_pickup_datetime")] )}} as tripid, 
+        {{ adapter.quote("VendorID") }},
         {{ adapter.quote("lpep_pickup_datetime") }},
         {{ adapter.quote("lpep_dropoff_datetime") }},
         {{ adapter.quote("store_and_fwd_flag") }},
