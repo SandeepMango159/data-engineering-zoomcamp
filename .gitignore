@@ -47,3 +47,4 @@ terraform.tfplan
 02-workflow-orchestration/flows/Tripdata
 *.pptx
 Data/data
+.vscode
