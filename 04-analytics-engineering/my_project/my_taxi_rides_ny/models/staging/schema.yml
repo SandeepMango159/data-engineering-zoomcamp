@@ -1,0 +1,13 @@
+# Staging models are models that will clean the source data
+version: 2
+
+sources:
+  - name: staging
+    database: de-zoomcamp-course-458518
+    schema: module_4_analytics
+
+    tables:
+      - name: green_tripdata_external
+        description: Raw external table for Green Taxi Data
+      - name: yellow_tripdata_external
+        description: Raw external table for Yellow Taxi Data
