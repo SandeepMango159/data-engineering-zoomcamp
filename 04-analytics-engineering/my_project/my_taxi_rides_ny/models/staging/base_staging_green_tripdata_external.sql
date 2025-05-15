@@ -1,3 +1,8 @@
+{{
+    config(
+        materialized='view'
+    )
+}}
  with
  
 {# Select  everything from the staging source, defined in schema.yml, and selects the green ext table#}
