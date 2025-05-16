@@ -58,8 +58,9 @@ from tripdata
 where rn = 1
 
 
-{# Variables #}
--- dbt build --select <model.sql> --vars '{'is_test_run: false}'
+{# Variables 
+This is what they call a dev limit variable, good for developing stage, since queries will be faster and cheaper... #}
+-- dbt build --select <model.sql> --vars '{'is_test_run': 'false'}'
 {% if var('is_test_run', default=true) %}
 
   limit 100
