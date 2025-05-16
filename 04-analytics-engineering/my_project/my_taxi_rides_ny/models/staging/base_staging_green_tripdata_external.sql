@@ -36,10 +36,8 @@ with tripdata as (
     {{ adapter.quote("store_and_fwd_flag") }},
     {{ dbt.safe_cast(adapter.quote("passenger_count"), api.Column.translate_type("integer")) }} as passenger_count,
     {{ dbt.safe_cast(adapter.quote("trip_distance"), api.Column.translate_type("numeric")) }} as trip_distance,
-  
-    {# Yellow cabs are always street-hail so no e-hail fee #}
-    {# Trip type for yellow taxi's is 1, so no need to ingest or safe cast etc #}
-    1 as trip_type,
+    {{ dbt.safe_cast("trip_type", api.Column.translate_type("integer")) }} as trip_type,
+
 
     -- payment info
     {{ dbt.safe_cast("fare_amount", api.Column.translate_type("numeric")) }} as fare_amount,
@@ -47,7 +45,7 @@ with tripdata as (
     {{ dbt.safe_cast(adapter.quote("mta_tax"), api.Column.translate_type("numeric")) }} as mta_tax,
     {{ dbt.safe_cast(adapter.quote("tip_amount"), api.Column.translate_type("numeric")) }} as tip_amount,
     {{ dbt.safe_cast(adapter.quote("tolls_amount"), api.Column.translate_type("numeric")) }} as tolls_amount,
-    {{ dbt.safe_cast("0", api.Column.translate_type("numeric")) }} as ehail_fee,
+    {{ dbt.safe_cast(adapter.quote("ehail_fee"), api.Column.translate_type("numeric")) }} as ehail_fee,
     {{ dbt.safe_cast(adapter.quote("improvement_surcharge"), api.Column.translate_type("numeric")) }} as improvement_surcharge,
     {{ dbt.safe_cast(adapter.quote("total_amount"), api.Column.translate_type("numeric")) }} as total_amount,
     coalesce({{ dbt.safe_cast(adapter.quote("payment_type"), api.Column.translate_type("integer")) }},0) as payment_type,
