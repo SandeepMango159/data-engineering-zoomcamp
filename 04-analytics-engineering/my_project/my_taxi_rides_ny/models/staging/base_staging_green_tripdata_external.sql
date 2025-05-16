@@ -20,26 +20,26 @@ with tripdata as (
     vendorid is not null 
 )
   select
-    -- identifiers
+    {# -- identifiers #}
     {{dbt_utils.generate_surrogate_key([adapter.quote("VendorID"), adapter.quote("lpep_pickup_datetime")] )}} as tripid, 
     {{ dbt.safe_cast(adapter.quote("VendorID"), api.Column.translate_type("integer"))}} as vendorid,
     {{ dbt.safe_cast(adapter.quote("RatecodeID"), api.Column.translate_type("integer")) }} as ratecodeid,
     {{ dbt.safe_cast(adapter.quote("PULocationID"), api.Column.translate_type("integer")) }} as pickup_locationid,
     {{ dbt.safe_cast(adapter.quote("DOLocationID"), api.Column.translate_type("integer")) }} as dropoff_locationid,
 
-    -- timestamps
+    {# -- timestamps #}
     cast({{adapter.quote("lpep_pickup_datetime")}} as timestamp) as pickup_datetime,
     cast({{adapter.quote("lpep_dropoff_datetime")}} as timestamp) as dropoff_datetime,
 
 
-    -- trip info
+    {# -- trip info #}
     {{ adapter.quote("store_and_fwd_flag") }},
     {{ dbt.safe_cast(adapter.quote("passenger_count"), api.Column.translate_type("integer")) }} as passenger_count,
     {{ dbt.safe_cast(adapter.quote("trip_distance"), api.Column.translate_type("numeric")) }} as trip_distance,
     {{ dbt.safe_cast("trip_type", api.Column.translate_type("integer")) }} as trip_type,
 
 
-    -- payment info
+    {# -- payment info #}
     {{ dbt.safe_cast("fare_amount", api.Column.translate_type("numeric")) }} as fare_amount,
     {{ dbt.safe_cast(adapter.quote("extra"), api.Column.translate_type("numeric")) }} as extra,
     {{ dbt.safe_cast(adapter.quote("mta_tax"), api.Column.translate_type("numeric")) }} as mta_tax,
