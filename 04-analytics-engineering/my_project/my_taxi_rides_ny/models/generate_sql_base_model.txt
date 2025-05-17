@@ -1,3 +1,5 @@
 Terminal command: 
 dbt run-operation generate_model_yaml --args "{"model_names": ["base_staging_green_tripdata_external","base_staging_yellow_tripdata_external"]}"
 
+
+dbt run-operation generate_model_yaml --args "{"model_names": ["dim_zones","dm_monthly_zone_revenue", "fact_trips"]}"
