@@ -6,7 +6,7 @@
  
  {# 
  This is a common table expression CTE
- It selects everything from the source which is staging, and our green_tripdata_external table
+ It selects everything from the source which is staging, and our green_tripdata_external_schema table
  And adds another extra column called "rn" made from the vendorid and lpep datetime
  Partitions over the same columns as what creates your primary keys, so if there are duplicates they'll be numbered as 1,2,3... etc and at the end you only keep number1, okay... 
  #}
@@ -15,7 +15,7 @@ with tripdata as (
     *,
     row_number() over(partition by cast(vendorid as int64), lpep_pickup_datetime) as rn
   from 
-    {{ source('staging','green_tripdata_external') }}
+    {{ source('staging','green_tripdata_external_schema') }}
   where 
     vendorid is not null 
 )

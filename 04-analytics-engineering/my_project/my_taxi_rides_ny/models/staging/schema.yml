@@ -7,7 +7,7 @@ sources:
     schema: module_4_analytics
 
     tables:
-      - name: green_tripdata_external
+      - name: green_tripdata_external_schema
         description: Raw external table for Green Taxi Data
-      - name: yellow_tripdata_external
+      - name: yellow_tripdata_external_schema
         description: Raw external table for Yellow Taxi Data
