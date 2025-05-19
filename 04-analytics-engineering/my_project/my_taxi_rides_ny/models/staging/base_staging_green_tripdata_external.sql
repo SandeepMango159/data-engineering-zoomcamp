@@ -21,7 +21,7 @@ with tripdata as (
 )
   select
     {# -- identifiers #}
-    {{dbt_utils.generate_surrogate_key([adapter.quote("VendorID"), adapter.quote("lpep_pickup_datetime")] )}} as tripid, 
+    {{dbt_utils.generate_surrogate_key(["'green'", adapter.quote("VendorID"), adapter.quote("lpep_pickup_datetime"), adapter.quote("PULocationID"), adapter.quote("DOLocationID")] )}} as tripid, 
     {{ dbt.safe_cast(adapter.quote("VendorID"), api.Column.translate_type("integer"))}} as vendorid,
     {{ dbt.safe_cast(adapter.quote("RatecodeID"), api.Column.translate_type("integer")) }} as ratecodeid,
     {{ dbt.safe_cast(adapter.quote("PULocationID"), api.Column.translate_type("integer")) }} as pickup_locationid,
