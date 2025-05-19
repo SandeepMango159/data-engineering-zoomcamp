@@ -185,3 +185,15 @@ models:
       - name: payment_type_description
         data_type: string
         description: ""
+
+  - name: dim_taxi_trips
+    description: "One row per taxi trip with usefull calendar attributes."
+    columns:
+      - name: tripid
+        tests: [unique, not_null]
+
+      - name: year
+        description: "Calendar year of the pickup"
+      - name: quarter
+      - name: year_quarter
+      - name: month
