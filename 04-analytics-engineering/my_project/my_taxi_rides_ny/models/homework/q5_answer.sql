@@ -11,8 +11,7 @@ WITH y2020 AS (
 ),
 {# From 2020 we pick columns, and
 we rank over each service type and yoy growth by either asc or desc, and that means best or worst
-So creates a column to rank per service type, 
- #}
+So creates a column to rank per service type #}
 ranked AS (
     SELECT
         service_type,
