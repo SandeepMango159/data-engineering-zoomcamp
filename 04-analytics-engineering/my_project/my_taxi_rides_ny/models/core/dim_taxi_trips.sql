@@ -4,7 +4,8 @@
 {{ config(
     materialized = 'table',          
     cluster_by   = ['year', 'service_type']   
-) }}
+    )
+}}
 
 
 {# Get the green data, add service type Green to identify it form the yellow ones #}
