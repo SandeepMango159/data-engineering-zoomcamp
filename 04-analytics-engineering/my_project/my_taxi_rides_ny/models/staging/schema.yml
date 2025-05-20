@@ -12,6 +12,9 @@ sources:
       - name: yellow_tripdata_external_schema
         description: Raw external table for Yellow Taxi Data
 
+      - name: fhv_tripdata_external_schema
+        desciption: Raw external table for FHV Taxi Data
+
 
 models:
   - name: base_staging_green_tripdata_external
