@@ -17,7 +17,7 @@ with trips as (
     from 
         {{ ref('fact_trips') }} f
         join {{ ref('dim_taxi_trips') }} d
-      on d.trip_id = f.trip_id
+      on d.tripid = f.tripid
 
 ), 
 {# Then from the trips above we group everything that belongs to the same service type and within the same year and within the same quarter
@@ -61,4 +61,4 @@ year_over_year_revenue as (
 )
 
 select *
-from year_over_year_revenue;
+from year_over_year_revenue
