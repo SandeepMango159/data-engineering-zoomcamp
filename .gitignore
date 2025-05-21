@@ -48,3 +48,4 @@ terraform.tfplan
 *.pptx
 Data/data
 .vscode
+05-batch/code/taxi+_zone_lookup.csv
