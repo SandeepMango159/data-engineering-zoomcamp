@@ -10,6 +10,21 @@
 # %%
 # Add the vevn to spark's settings, so inject the venv’s Python into both driver & worker configs before recreating the session, to find the right python interpreter, since the notebook us running within the venv kernel, we can just use sys.executable
 import os, sys
+import argparse
+
+#couple of command line arguments
+parser = argparse.ArgumentParser()
+
+parser.add_argument('--input_green', required=True)
+parser.add_argument('--input_yellow', required=True)
+parser.add_argument('--output', required=True)
+
+args = parser.parse_args()
+
+input_green = args.input_green
+input_yellow = args.input_yellow
+output = args.output
+
 
 print(sys.executable)
 venv_python = sys.executable
@@ -29,8 +44,8 @@ print(os.environ['PYSPARK_DRIVER_PYTHON'])
 import pyspark
 from pyspark.sql import SparkSession
 
+# We do not want to specify master here, especially if it's running in a cloud environment like dataproc, that way dataproc will correctly assign the master itself
 spark = SparkSession.builder \
-    .master("spark://192.168.0.181:7077") \
     .appName('test') \
     .config("spark.pyspark.python", venv_python) \
     .config("spark.pyspark.driver.python", venv_python) \
@@ -52,7 +67,7 @@ spark
 
 # %%
 # Use 2 * since we have year subfolders, and month subfolders, okay...
-df_green = spark.read.parquet('../../Data/data/csv/green/spark_parquet/*/*')
+df_green = spark.read.parquet(input_green)
 
 # %%
 # After reading the green parquet files, we show them
@@ -82,7 +97,7 @@ df_green.printSchema()
 # ### Read yellow files
 
 # %%
-df_yellow = spark.read.parquet('../../Data/data/csv/yellow/spark_parquet/*/*')
+df_yellow = spark.read.parquet(input_yellow)
 
 # %%
 # After reading the green parquet files, we show them
@@ -253,6 +268,6 @@ df_result.count()
 # %%
 # And write out the fie
 # Use coalesce, it's like partition, but to reduce partitions, so it'll reduce it to 1 partition
-df_result.coalesce(1).write.parquet('../../Data/data/module-05-batch/cloud-book/report/revenue', mode='overwrite')
+df_result.coalesce(1).write.parquet(output, mode='overwrite')
 
 
