@@ -62,6 +62,8 @@ cd 06-streaming/pyflink
 
     #// if you dont have make, you can run:
     # docker-compose exec jobmanager ./bin/flink run -py /opt/job/start_job.py -d
+    or
+    docker compose exec jobmanager ./bin/flink run -py /opt/src/job/start_job.py --pyFiles /opt/src -d
     ```
 
     After about a minute, you should see a prompt that the job's been submitted (e.g., `Job has been submitted with JobID <job_id_number>`). Now go back to the [Flink UI](http://localhost:8081/#/job/running) to see the job running! :tada:
